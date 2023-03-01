@@ -1,0 +1,69 @@
+table company {
+  id integer pk
+  name varchar
+}
+
+table client{
+  id integer pk
+  company_name varchar [ref: - company.name]
+  project varchar [ref: - project.project_name]
+  amount_paid integer
+  contact_number numeric
+}
+
+table skill{
+  id integer pk
+  skill_name varchar
+}
+
+table staff_skill{
+  id integer pk
+  staff_id integer [ref: > staff.id]
+  skill_id integer [ref: > skill.id]
+
+}
+
+table staff {
+  id integer pk
+   first_name varchar
+   last_name varchar
+   gender varchar
+   birth_date date
+   address varchar
+   contact_number numeric
+   email_address varchar
+   employee_number integer
+   position varchar
+   password varchar
+}
+
+table project{
+  id integer pk
+  project_name varchar
+  company_id integer [ref: - company.id]
+  client_id integer [ref: - client.id]
+  description varchar
+  start_date datetime
+  finish_date datetime
+}
+
+table project_skill{
+  id integer pk
+  skill_id integer [ref: > skill.id]
+  project_id integer [ref: > project.id]
+}
+
+table project_staff{
+  id integer pk
+  staff_id integer [ref: - staff.id]
+  project_id integer [ref: - project.id]
+  role_id integer
+}
+
+table access {
+  id integer pk
+  staff_id integer [ref: - staff.id]
+  server_access boolean
+  repository_access boolean
+  slackchannel_access boolean
+}
